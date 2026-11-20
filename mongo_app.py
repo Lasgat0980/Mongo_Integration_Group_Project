@@ -29,7 +29,9 @@ except Exception as error:
 # Import JSON data into MongoDB
 def import_json(filename):
     try:
-        with open(filename, 'r', encoding='utf-8') as file:
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
+        with open(file_path, 'r', encoding='utf-8') as file:
             count = 0
             records = []
 
