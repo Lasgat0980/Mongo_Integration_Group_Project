@@ -101,7 +101,6 @@ def delete_record(key):
 
 #Commit Message Analysis
 def commit_message_analysis():
-            print("Function started")
 
             total_messages = 0
             fixes = 0
@@ -148,7 +147,7 @@ def top_contributors():
         reverse=True
     )
 
-    print("\nTop Contibutors")
+    print("\nTop Contributors")
 
     for contributor, count in sorted_contributors[:10]:
         print(f"{contributor}: {count} commits")
