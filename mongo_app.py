@@ -99,6 +99,87 @@ def delete_record(key):
     else:
         print(f"Record '{key}' not found.")
 
+#Commit Message Analysis
+def commit_message_analysis():
+            print("Function started")
+
+            total_messages = 0
+            fixes = 0
+            additions = 0
+            updates = 0
+
+            for commit in commitsCollection.find():
+
+                message = commit.get("message", "").lower()
+
+                if message:
+                    total_messages += 1
+                    if "fix" in message:
+                        fixes += 1
+
+                    if "add" in message:
+                        additions += 1
+
+                    if "update" in message:
+                        updates += 1
+
+            print("\nCommit Message Analysis")
+            print(f"Commits with messages: {total_messages}")
+            print(f"Messages mentioning fixes: {fixes}")
+            print(f"Messages mentioning additions: {additions}")
+            print(f"Messages mentioning updates: {updates}")
+
+#Top Contributors
+def top_contributors():
+
+    contributors = {}
+
+    for commit in commitsCollection.find():
+
+        author = commit.get("author", {})
+        name = author.get("name")
+
+        if name:
+            contributors[name] = contributors.get(name, 0) + 1
+
+    sorted_contributors = sorted(
+        contributors.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    print("\nTop Contibutors")
+
+    for contributor, count in sorted_contributors[:10]:
+        print(f"{contributor}: {count} commits")
+
+# Most Active Repositories
+def active_repositories():
+
+    repositories = {}
+
+    for commit in commitsCollection.find():
+
+        repo_name = commit.get("repo_name",[])
+
+        if isinstance(repo_name, list) and len(repo_name) > 0:
+            repo_name = repo_name[0]
+
+        if repo_name:
+            repositories[repo_name] = repositories.get(repo_name, 0) + 1
+
+    sorted_repositories = sorted(
+        repositories.items(),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    print("\nMost Active Repositories")
+
+    for repo, count in sorted_repositories[:10]:
+        print(f"{repo}: {count} commits")
+                
+                
 
 # Display the main menu
 def display_menu():
@@ -154,13 +235,13 @@ def main():
             delete_record(key)
 
         elif choice == "6":
-            print("Commit Message Analysis will be added next.")
+            commit_message_analysis()
 
         elif choice == "7":
-            print("Top Contributors will be added by the group.")
+            top_contributors()
 
         elif choice == "8":
-            print("Most Active Repositories will be added by the group.")
+            active_repositories()
 
         elif choice == "9":
             print("Exiting application.")
