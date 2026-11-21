@@ -4,7 +4,7 @@
 
 GitHub Archive Hub is a Python application developed as a group project to store, manage, and analyze data from the GitHub Archive dataset using MongoDB. The application includes an interactive menu that allows users to import JSON data and perform Create, Read, Update, and Delete (CRUD) operations.
 
-The project also includes plans for three analysis features that will help users explore commit messages, contributor activity, and repository activity.
+The application also includes three analysis features that examine commit messages, identify top contributors, and display the most active repositories based on commit activity.
 
 ## Group Members
 
@@ -66,13 +66,17 @@ It uses the `GitHubArchiveHub` database and the `Commits` collection.
 
 **Interactive Menu:** Allows users to select application functions without modifying the Python code.
 
-## Analysis Features in Development
+## Analysis Features
 
-The following features are included in the menu but are not yet fully implemented:
+The application includes three additional features that analyze commit activity using records stored in the MongoDB `Commits` collection.
 
-- **Commit Message Analysis:** Analyze commit messages for common terms such as fixes, additions, and updates.
-- **Top Contributors:** Identify contributors with the highest number of commits.
-- **Most Active Repositories:** Identify repositories with the most commit activity.
+**Commit Message Analysis:** Examines commit messages and counts how many contain the terms "fix," "add," and "update." It also displays the total number of commits containing messages.
+
+**Top Contributors:** Uses the author information in the dataset to identify the ten contributors with the highest number of commits. Results are displayed in descending order.
+
+**Most Active Repositories:** Uses the repository names in the dataset to identify the ten repositories with the highest number of commits. Results are displayed in descending order.
+
+All three analysis features have been implemented and successfully tested using the imported `Commits.json` dataset.
 
 ## Dataset
 
@@ -80,23 +84,24 @@ The application uses the GitHub Archive dataset provided for the course project.
 
 The `Commits.json` file was successfully imported into the MongoDB `Commits` collection, containing 25,000 records.
 
-Users must provide the location of the JSON file on their own computer when selecting the import option.
+When importing data, users can enter `Commits.json` if the file is saved in the same folder as `mongo_app.py`. Alternatively, they can enter the full file path if the dataset is stored elsewhere on their computer. Users should avoid importing the same dataset multiple times because duplicate records may affect the analysis results.
 
 ## Testing
 
 The following features have been successfully tested:
 
 - MongoDB database connection
-- JSON data import
-- Create operation
-- Read operation
-- Update operation
-- Delete operation
-- Interactive menu
+- JSON import of 25,000 records
+- Create, Read, Update, and Delete (CRUD) operations
+- Interactive menu navigation
+- Commit Message Analysis
+- Top Contributors
+- Most Active Repositories
+- Invalid menu selection handling
+- Application exit
 
-The imported records were also verified using MongoDB Compass.
+The imported records were verified using MongoDB Compass. All three analysis features executed successfully and displayed results using the MongoDB `Commits` collection.
 
-## Future Development
 
 The group plans to complete the three analysis features, test the full application, and continue improving its functionality and documentation.
 
